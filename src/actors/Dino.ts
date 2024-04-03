@@ -1,4 +1,4 @@
-import Actor from "./Actor";
+import Actor from "./Actor.js";
 
 export default class Dino extends Actor {
   vVelocity: number | null;
@@ -11,18 +11,24 @@ export default class Dino extends Actor {
     super(imageData);
     this.vVelocity = null; // from minus to plus
     this.gravity = 0;
-    this.baseY = 0; //always plus. constant
-    this.relativeY = 0; //always minus
+    this.baseY = 0; // always plus. constant
+    this.relativeY = 0; // always minus
     this.lift = 0;
+    this.sprite = "dino";
   }
 
   get dy() {
     return this.baseY - this.height + this.relativeY;
   }
 
+  reset() {
+    this.vVelocity = null;
+    this.relativeY = 0;
+  }
+
   jump() {
-    //button clicked -> return true if possible
-    //return false if already jumping
+    // button clicked -> return true if possible
+    // return false if already jumping
     if (this.relativeY == 0) {
       this.vVelocity = -this.lift;
       return true;

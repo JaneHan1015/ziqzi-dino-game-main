@@ -1,3 +1,7 @@
+import DinoGame from "./game/DinoGames.js";
+
+const game = new DinoGame(600, 150);
+
 const keycodes = {
   // up, spacebar
   JUMP: { 38: 1, 32: 1 },
@@ -5,5 +9,7 @@ const keycodes = {
   DUCK: { 40: 1 },
 };
 
-//input gate
-document.addEventListener("keydown", ({ keyCode }) => {});
+// Input gate
+document.addEventListener("keydown", (e) => {
+  game.onInput();
+});

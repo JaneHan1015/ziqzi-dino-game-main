@@ -1,8 +1,8 @@
-import sprites from "../sprites";
+import sprites from "../sprites.js";
 
 const cache = new Map();
 
-type SpritesNames =
+export type SpritesNames =
   | "birdUp"
   | "birdDown"
   | "cactus"
@@ -53,7 +53,7 @@ function getSpriteAlphaMap(imageData: ImageData, name: SpritesNames) {
 }
 
 export default class Actor {
-  private _sprite: any;
+  private _sprite: SpritesNames;
   x: number;
   y: number;
   height: number;
@@ -61,8 +61,8 @@ export default class Actor {
   imageData?: ImageData;
   alphaMap: any;
 
-  constructor(imageData: ImageData) {
-    this._sprite = null;
+  constructor(imageData?: ImageData) {
+    this._sprite = "birdDown";
     this.height = 0;
     this.width = 0;
     this.x = 0;
@@ -88,8 +88,30 @@ export default class Actor {
     return this._sprite;
   }
 
+  get rightX() {
+    return this.width + this.x;
+  }
+
+  get bottomY() {
+    return this.height + this.y;
+  }
+
   hits(actors: Actor[]) {
-    //TODO hitbox mechanism
+    return actors.some((actor) => {
+      if (!actor) {
+        return false;
+      }
+
+      if (this.x >= actor.rightX || actor.x >= this.rightX) {
+        return false;
+      }
+
+      if (this.y >= actor.bottomY || actor.y >= this.bottomY) {
+        return false;
+      }
+
+      return true;
+    });
   }
 }
 
