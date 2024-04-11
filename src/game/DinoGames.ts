@@ -126,12 +126,14 @@ export default class DinoGame extends GameRunner {
       this.drawCactus();
 
       if (this.state.dino.hits(this.state.cacti)) {
+        console.log("game over");
         playSound("game-over");
         this.state.gameOver = true;
       }
 
       if (this.state.gameOver) {
         // end game
+        this.endGame();
       }
     }
     // if gameover -> end game
@@ -140,6 +142,7 @@ export default class DinoGame extends GameRunner {
   endGame() {
     // stop the game
     this.stop();
+    this.state.isRunning = false;
     // game over text
   }
 

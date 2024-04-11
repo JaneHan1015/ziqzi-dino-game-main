@@ -48,4 +48,23 @@ export default class Dino extends Actor {
       this.relativeY = 0;
     }
   }
+
+  get bottomY() {
+    return this.height + this.dy;
+  }
+
+  hits(actors: Actor[]) {
+    return actors.some((actor) => {
+      if (!actor) {
+        return false;
+      }
+      if (this.x >= actor.rightX || actor.x >= this.rightX) {
+        return false;
+      }
+      if (this.dy >= actor.bottomY || actor.y >= this.bottomY) {
+        return false;
+      }
+      return true;
+    });
+  }
 }
